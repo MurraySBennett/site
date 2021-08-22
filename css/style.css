@@ -11,9 +11,12 @@
     --fw-reg: 300;
     --fw-bold: 900;
 
-    --clr-light: #ffff;
-    --clr-dark: #303030;
-    --clr-accent: #16e0bd;
+    --clr-light: #ececec;
+    --clr-dark: #24305e;
+    --clr-accentLight: #90ccf4;
+    --clr-accentDark: #4a5fc1;
+    --clr-alt: #fb8122;
+    --clr-accentAlt: #deb992;
 
     --fs-h1: 3rem;
     --fs-h2: 2.25rem;
@@ -35,6 +38,9 @@
 }
 
 /* General styles */
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     background: var(--clr-light);
@@ -59,7 +65,7 @@ strong {
 }
 
 :focus {
-    outline: 3px solid var(--clr-accent);
+    outline: 3px solid var(--clr-accentLight);
     outline-offset: 3px;
 }
 
@@ -68,7 +74,7 @@ strong {
 .btn {
     display: inline-block;
     padding: .5em 2.5em;
-    background: var(--clr-accent);
+    background: var(--clr-accentLight);
     color: var(--clr-dark);
     text-decoration: none;
     cursor: pointer;
@@ -80,6 +86,9 @@ strong {
 }
 .btn:hover{
     transform: scale(1.1);
+}
+.btn:focus {
+    outline: 3px solid var(--clr-alt);
 }
 
 /* Basic Typography */
@@ -114,14 +123,124 @@ h3 {font-size: var(--fs-h3)}
 
 .section__subtitle--intro,
 .section__subtitle--about {
-    background: var(--clr-accent);
+    background: var(--clr-accentLight);
     padding: .25em 1em;
     font-family: var(--ff-secondary);
     margin-bottom: 1em;
 }
 
 /* Header */
-nav {display: none;}
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.logo {
+    max-width: 100px;
+}
+
+.nav {
+    position: fixed;
+    background: var(--clr-dark);
+    color: var(--clr-light);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+
+    transform: translateX(100%); /*moves across 50% of itself*/
+    transition: transform 250ms cubic-bezier(.5, 0, .5, 1);
+}
+
+.nav__list {
+    list-style: none;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav__link {
+    color: inherit;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h2);
+    text-decoration: none;
+}
+
+.nav__link:hover{
+     color: var(--clr-accentLight);
+}
+
+.nav-toggle { /*the actual button*/
+    padding: .5em;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    z-index: 1000;
+}
+
+
+.nav-open .nav {
+    transform: translateX(0);
+}
+.nav-open .nav-toggle {
+    position: fixed;
+}
+
+.nav-open .hamburger {
+    transform: rotate(.625turn);
+}
+
+.nav-open .hamburger::before{
+    transform: rotate(90deg) translateX(-6px);
+}
+
+.nav-open .hamburger::after{
+    opacity: 0;
+}
+
+
+/* Hamburgir */
+.hamburger {
+    display: block;
+    position: relative
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    background: var(--clr-accentDark);
+    width: 2em;
+    height: 3px;
+    border-radius: 1em;
+    transition: transform 250ms ease-in-out;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content:'';
+    position: absolute;
+    left:0;
+    right:0;
+    background: var(--clr-accentDark);
+}
+
+.hamburger::before {
+    top: 6px;
+}
+.hamburger::after {
+    bottom: 6px;
+}
+
+
 
 /* Intro section */
 .intro {
@@ -161,48 +280,58 @@ nav {display: none;}
     }
 }
 
-/* Projects section */
+/* Research section */
 
-.my-projects{
+.my-research{
     background-color: var(--clr-dark);
-    background-image: url(../img/projects-bg.png); /*good to put this before 'color' just in case the image doesn't load*/
+    background-image: url(../img/research-bg.jpg); /*good to put this before 'color' just in case the image doesn't load*/
     background-size: cover;
     background-blend-mode: multiply;
     color: var(--clr-light);
     text-align: center;
 }
 
-.section__title--projects {
-    color: var(--clr-accent);
+.section__title--research {
+    color: var(--clr-accentAlt);
     position:relative;
 } 
-.section__title--projects::after { /*this draws the cute lil line beneath the header*/
+.section__title--research::after { /*this draws the cute lil line beneath the header*/
     content: ''; /* need to have a content parm (even if it'sempty) otherwise won't appear*/
     display: block;
     width: 2em; /* you could do this as a percentage of the screen, too*/
     height: .5px;
     margin: 0.5em auto 1em;
-    background: var(--clr-light); /* or you can set this to currentColor if you want it to match the above color.*/
-    
+    background: var(--clr-alt); /* or you can set this to currentColor if you want it to match the above color.*/
 }
 
-.projects {
+.research--projects {
     margin-bottom: 4em;
 }
 
-.project{
+.research{
     max-width: 300px;
     margin: 0 auto;
 }
-@media (min-width: 800px){/*a media query - I think this separate stuff  into columns if the space allows*/
-    .projects {
+
+.research__title {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--clr-light);
+    transition: transform 200ms ease-in-out;
+}
+.research__title:hover {
+    transform: scale(1.1);
+}
+
+@media (min-width: 800px){/*media query*/
+    .research--projects {
         display: flex; /*3 columns*/
-        max-width:1000px;
+        max-width: 1000px;
         margin-left: auto;
         margin-right: auto;
     }
-    .project + .project {/*if there are 2 projects next to each other, give them a lil buffer*/
-        margin-left:2em;
+    .research + .research {/*if there are 2 research projects next to each other, give them a lil buffer*/
+        margin-left: 2em;
     }
 }
 
@@ -225,7 +354,7 @@ nav {display: none;}
 @media(min-width: 600px){
     .about-me{
         display: grid;
-        grid-template-columns: lfr 200px;
+        grid-template-columns: 1fr 200px;
     }
     .section__title--about{
         grid-area: title;
@@ -244,4 +373,90 @@ nav {display: none;}
         position: relative;
         z-index: 2; /*ensures it's on top*/
     }
+}
+
+/* My Projects */
+
+.my-projects{
+    background-color: var(--clr-dark);
+    color: var(--clr-light);
+    text-align: center;
+}
+
+.section__subtitle--project{
+    color: var(--clr-accentLight);
+    font-weight: var(--fw-bold);
+    margin-bottom: 2em;
+}
+
+.project {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /*automatically makes x columns (3, lfr)f or you can use (autofit, minmax(valuepx))*/
+}
+
+
+
+.project__item {
+    background: var(--clr-accentDark);
+    overflow: hidden;
+}
+.project__img {
+    transition: 
+        transform 750ms cubic-bezier(0.5, 0, 0.5, 1),
+        opacity 250ms linear;
+}
+
+.project__item:focus { /*put here to make the box that appears during focus to be in front of the images around it*/
+    position: relative;
+    z-index:2;
+}
+.project__img:hover,
+.project__item:focus .project__img {
+    transform: scale(1.1);
+    opacity: 0.7;
+}
+
+
+
+/* Footer */
+.footer{
+    background: #111;
+    color: var(--clr-accentLight);
+    text-align: center;
+    padding: 2.5em 0;
+    font-size: var(--fs-h3);
+}
+
+.footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer__link {
+    font-weight: var(--fw-bold);
+}
+
+.footer__link:hover,
+.social-list__link:hover{
+    opacity: .7;
+}
+
+.footer__link:hover{
+    text-decoration: underline;
+}
+
+.social-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 2em 0 0;
+    padding: 0;
+}
+
+.social-list__item {
+    margin: 0 .5em;
+}
+
+.social-list__link {
+    padding: 0 .5em;
 }
