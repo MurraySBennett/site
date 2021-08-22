@@ -52,7 +52,7 @@ body {
 }
 
 section {
-    padding: 5em 2em;
+    padding: 2em 2em;
 }
 
 img {
@@ -112,7 +112,7 @@ h3 {font-size: var(--fs-h3)}
 .section__title--intro{
     font-weight: var(--fw-reg);
 }
-.section__title--intro strong{ /* This is not good/standard practice but we are doing this to ensure that the text within 'strong' in this section title takes a new line*/
+.section__title--intro strong{ 
     display: block;
 }
 
@@ -139,7 +139,14 @@ header {
 .logo {
     max-width: 100px;
 }
-
+.logo--home{
+    font-size: var(--fs-h3);
+}
+.logo:hover,
+.logo--home:hover {
+    transform: scale(1.1);   
+    transition: 250ms;
+}
 .nav {
     position: fixed;
     background: var(--clr-dark);
@@ -187,7 +194,6 @@ header {
     z-index: 1000;
 }
 
-
 .nav-open .nav {
     transform: translateX(0);
 }
@@ -208,12 +214,12 @@ header {
 }
 
 
+
 /* Hamburgir */
 .hamburger {
     display: block;
     position: relative
 }
-
 .hamburger,
 .hamburger::before,
 .hamburger::after {
@@ -223,7 +229,6 @@ header {
     border-radius: 1em;
     transition: transform 250ms ease-in-out;
 }
-
 .hamburger::before,
 .hamburger::after {
     content:'';
@@ -232,7 +237,6 @@ header {
     right:0;
     background: var(--clr-accentDark);
 }
-
 .hamburger::before {
     top: 6px;
 }
@@ -459,4 +463,23 @@ header {
 
 .social-list__link {
     padding: 0 .5em;
+}
+
+
+
+/*Specific Project items*/
+.project-content {
+    padding: 0 2m 2em;
+    max-width: 1000px;
+    margin:0 auto;
+}
+.project-content .img__banner {
+    height: 250px; 
+    width: 1000px;
+    object-fit: fill;
+}
+.project-content p {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
